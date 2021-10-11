@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id" xmlns:tools="http://schemas.android.com/tools">
+  <string name="firebase_database_url" translatable="false">https://ar-fabrication-default-rtdb.europe-west1.firebasedatabase.app</string>
+  <string name="gcm_defaultSenderId" translatable="false">1047794230046</string>
+  <string name="google_storage_bucket" translatable="false">ar-fabrication.appspot.com</string>
+  <string name="project_id" translatable="false">ar-fabrication</string>
+  <string name="google_api_key" translatable="false">AIzaSyCWO4GPbVlV0fCfiSaCIpnbBwEryP8YO9k</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCWO4GPbVlV0fCfiSaCIpnbBwEryP8YO9k</string>
+  <string name="google_app_id" translatable="false">1:1047794230046:android:03ec7aeb226b8514349f0f</string>
+  <string name="default_web_client_id" translatable="false">1047794230046-2liebr1qr47dujbgfu5oe9vbvb1vkahv.apps.googleusercontent.com</string>
+</resources>

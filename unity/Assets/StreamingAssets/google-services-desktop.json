@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1047794230046",
+    "firebase_url": "https://ar-fabrication-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "ar-fabrication",
+    "storage_bucket": "ar-fabrication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047794230046:android:03ec7aeb226b8514349f0f",
+        "android_client_info": {
+          "package_name": "com.AFAB.ARFabricationSimulation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1047794230046-2liebr1qr47dujbgfu5oe9vbvb1vkahv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWO4GPbVlV0fCfiSaCIpnbBwEryP8YO9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1047794230046-2liebr1qr47dujbgfu5oe9vbvb1vkahv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="Target_11" size="0.200000 0.200000" />
+    <ImageTarget name="Target_10" size="0.200000 0.200000" />
+    <ImageTarget name="Target_09" size="0.200000 0.200000" />
+    <ImageTarget name="Target_08" size="0.200000 0.200000" />
+    <ImageTarget name="Target_07" size="0.200000 0.200000" />
+    <ImageTarget name="Target_06" size="0.200000 0.200000" />
+    <ImageTarget name="Target_05" size="0.200000 0.200000" />
+    <ImageTarget name="Target_04" size="0.200000 0.200000" />
+    <ImageTarget name="Target_01" size="0.200000 0.200000" />
+    <ImageTarget name="Target_03" size="0.200000 0.200000" />
+    <ImageTarget name="Target_02" size="0.200000 0.200000" />
+    <ImageTarget name="Target_00" size="0.200000 0.200000" />
+    <MultiTarget name="Targets">
+        <Part name="Target_00" translation="2.5 0 0" rotation="AD: 0 0 1 0"/>
+        <Part name="Target_01" translation="1.767767 1.767767 0" rotation="AD: 0 0 1 0"/>
+        <Part name="Target_02" translation="0 2.5 0" rotation="AD: 0 0 1 0"/>
+        <Part name="Target_03" translation="-1.767767 1.767767 0" rotation="AD: 0 0 1 0"/>
+        <Part name="Target_04" translation="-2.5 0 0" rotation="AD: 0 0 1 0"/>
+        <Part name="Target_05" translation="-1.767767 -1.767767 0" rotation="AD: 0 0 1 0"/>
+        <Part name="Target_06" translation="0 -2.5 0" rotation="AD: 0 0 1 0"/>
+        <Part name="Target_07" translation="1.767767 -1.767767 0" rotation="AD: 0 0 1 0"/>
+        <Part name="Target_08" translation="0 0 0" rotation="AD: 0 0 1 0"/>
+    </MultiTarget>
+  </Tracking>
+</QCARConfig>

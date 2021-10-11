@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+    <Tracking>
+        <ImageTarget name="QR_markers.Back" size="0.200000 0.200000"/>
+        <ImageTarget name="QR_markers.Left" size="0.200000 0.200000"/>
+        <ImageTarget name="QR_markers.Front" size="0.200000 0.200000"/>
+        <ImageTarget name="QR_markers.Right" size="0.200000 0.200000"/>
+        <ImageTarget name="QR_markers.Top" size="0.200000 0.200000"/>
+        <ImageTarget name="QR_markers.Bottom" size="0.200000 0.200000"/>
+        <MultiTarget name="QR_markers">
+            <Part name="QR_markers.Back" translation="1.2 2.078461 0" rotation="AD: 1 0 0 0"/>
+            <Part name="QR_markers.Top" translation="0 0 0" rotation="AD: 1 0 0 0"/>
+            <Part name="QR_markers.Left" translation="-1.2 2.078461 0" rotation="AD: 1 0 0 0"/>
+            <Part name="QR_markers.Front" translation="-2.4 0 0" rotation="AD: 1 0 0 0"/>
+            <Part name="QR_markers.Right" translation="-1.2 -2.078461 0" rotation="AD: 1 0 0 0"/>
+            <Part name="QR_markers.Bottom" translation="1.2 -2.078461 0" rotation="AD: 1 0 0 0"/>
+        </MultiTarget>
+    </Tracking>
+</QCARConfig>
