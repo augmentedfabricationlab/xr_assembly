@@ -1,0 +1,125 @@
+Metadata-Version: 2.1
+Name: xr-assembly
+Version: 0.1.0
+Summary:  Visualize Assembly data in XR
+Home-page: https://github.com/augmentedfabricationlab/xr_assembly
+Author: Augmented Fabrication Lab
+Author-email: doerfler@tum.de
+License: MIT license
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: Unix
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Topic :: Scientific/Engineering
+License-File: LICENSE
+License-File: AUTHORS.rst
+
+============================================================
+XR Assembly
+============================================================
+
+
+
+.. Write project description
+
+** Visualize Assembly data in XR** ...
+
+
+Main features
+-------------
+
+* feature
+* feature
+* more features
+
+**xr_assembly** runs on Python x.x and x.x.
+
+
+Documentation
+-------------
+
+.. Explain how to access documentation: API, examples, etc.
+
+..
+.. optional sections:
+
+Requirements
+------------
+
+.. Write requirements instructions here
+
+
+Installation
+------------
+
+.. Write installation instructions here
+
+
+Contributing
+------------
+
+Make sure you setup your local development environment correctly:
+
+* Clone the `xr_assembly <https://github.com/augmentedfabricationlab/xr_assembly>`_ repository.
+* Install development dependencies and make the project accessible from Rhino:
+
+::
+
+    pip install -r requirements-dev.txt
+    invoke add-to-rhino
+
+**You're ready to start working!**
+
+During development, use tasks on the
+command line to ease recurring operations:
+
+* ``invoke clean``: Clean all generated artifacts.
+* ``invoke check``: Run various code and documentation style checks.
+* ``invoke docs``: Generate documentation.
+* ``invoke test``: Run all tests and checks in one swift command.
+* ``invoke add-to-rhino``: Make the project accessible from Rhino.
+* ``invoke``: Show available tasks.
+
+For more details, check the `Contributor's Guide <CONTRIBUTING.rst>`_.
+
+
+Releasing this project
+----------------------
+
+.. Write releasing instructions here
+
+
+.. end of optional sections
+..
+
+Credits
+-------------
+
+This package was created by Lidia Atanasova <lidia.atanasova@tum.de> `@lidiatanasova <https://github.com/lidiatanasova>`_ at `@augmentedfabricationlab <https://github.com/augmentedfabricationlab>`_
+
+
+Changelog
+=========
+
+x.x.x
+-------
+
+
+0.1.0
+-------
+
+* Initial version
+
+
