@@ -6,6 +6,7 @@ flake8
 autopep8
 pylint
 pytest
+pyrebase
 isort
 twine
 -e .
