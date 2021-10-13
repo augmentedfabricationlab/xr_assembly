@@ -32,4 +32,7 @@ src/xr_assembly.egg-info/top_level.txt
 src/xr_assembly/assembly/__init__.py
 src/xr_assembly/assembly/assembly.py
 src/xr_assembly/assembly/element.py
+src/xr_assembly/firebase/__init__.py
+src/xr_assembly/firebase/realtime_database.py
+src/xr_assembly/firebase/storage.py
 tests/test_sample.py
