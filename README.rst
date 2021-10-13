@@ -33,16 +33,18 @@ Requirements
 Dependencies
 ------------
 
-* `_Assembly Information Model <https://github.com/augmentedfabricationlab/assembly_information_model>`_
+* `Assembly Information Model <https://github.com/augmentedfabricationlab/assembly_information_model>`_
 
 
 Installation of Dependencies
 ----------------------------
 **Assembly Information Model**
+::
     (your_env_name) python -m pip install git+https://github.com/augmentedfabricationlab/assembly_information_model@master#egg=assembly_information_model
     (your_env_name) python -m compas_rhino.install -p assembly_information_model
 
-**XR Assembly**    
+**XR Assembly**
+::
     (your_env_name) python -m pip install git+https://github.com/augmentedfabricationlab/xr_assembly@master#egg=xr_assembly
     (your_env_name) python -m compas_rhino.install -p xr_assembly -v 7.0
 
