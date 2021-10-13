@@ -59,8 +59,8 @@ Make sure you setup your local development environment correctly:
 
 ::
 
-    pip install -r requirements-dev.txt
-    invoke add-to-rhino
+    (your_env_name) pip install -r requirements-dev.txt
+    (your_env_name) invoke add-to-rhino
 
 **You're ready to start working!**
 
