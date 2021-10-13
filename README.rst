@@ -62,20 +62,6 @@ Make sure you setup your local development environment correctly:
     (your_env_name) pip install -r requirements-dev.txt
     (your_env_name) invoke add-to-rhino
 
-**You're ready to start working!**
-
-During development, use tasks on the
-command line to ease recurring operations:
-
-* ``invoke clean``: Clean all generated artifacts.
-* ``invoke check``: Run various code and documentation style checks.
-* ``invoke docs``: Generate documentation.
-* ``invoke test``: Run all tests and checks in one swift command.
-* ``invoke add-to-rhino``: Make the project accessible from Rhino.
-* ``invoke``: Show available tasks.
-
-For more details, check the `Contributor's Guide <CONTRIBUTING.rst>`_.
-
 
 Credits
 -------------
