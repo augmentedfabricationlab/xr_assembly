@@ -2,21 +2,8 @@
 XR Assembly
 ============================================================
 
-.. start-badges
 
-.. image:: https://img.shields.io/badge/License-MIT-blue.svg
-    :target: https://github.com/augmentedfabricationlab/xr_assembly/blob/master/LICENSE
-    :alt: License MIT
-
-.. image:: https://travis-ci.org/augmentedfabricationlab/xr_assembly.svg?branch=master
-    :target: https://travis-ci.org/augmentedfabricationlab/xr_assembly
-    :alt: Travis CI
-
-.. end-badges
-
-.. Write project description
-
-** Visualize Assembly data in XR** ...
+Visualize Assembly data in XR
 
 
 Main features
@@ -43,10 +30,21 @@ Requirements
 .. Write requirements instructions here
 
 
-Installation
+Dependencies
 ------------
 
-.. Write installation instructions here
+* `_Assembly Information Model <https://github.com/augmentedfabricationlab/assembly_information_model>`_
+
+
+Installation of Dependencies
+----------------------------
+**Assembly Information Model**
+    (your_env_name) python -m pip install git+https://github.com/augmentedfabricationlab/assembly_information_model@master#egg=assembly_information_model
+    (your_env_name) python -m compas_rhino.install -p assembly_information_model
+
+**XR Assembly**    
+    (your_env_name) python -m pip install git+https://github.com/augmentedfabricationlab/xr_assembly@master#egg=xr_assembly
+    (your_env_name) python -m compas_rhino.install -p xr_assembly -v 7.0
 
 
 Contributing
@@ -76,15 +74,6 @@ command line to ease recurring operations:
 
 For more details, check the `Contributor's Guide <CONTRIBUTING.rst>`_.
 
-
-Releasing this project
-----------------------
-
-.. Write releasing instructions here
-
-
-.. end of optional sections
-..
 
 Credits
 -------------
