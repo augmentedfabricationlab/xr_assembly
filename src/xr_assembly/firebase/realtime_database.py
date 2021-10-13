@@ -18,7 +18,6 @@ config = {
     "measurementId": "G-K8ZDJ560G4"
 }
 
-
 # initialize the connection to firebase
 firebase = pyrebase.initialize_app(config)
 
@@ -39,7 +38,7 @@ def get_keys_built():
         keys_built.append(key.val())
     return keys_built
 
-# get users
+# get users' ids
 def get_users():
     users_ids = []
     users = db.child("Users").get()
@@ -50,11 +49,16 @@ def get_users():
         #print("Selected by user Nr.", user.val()["userID"])
     return users_ids
 
+# set keys build.
+# note:erases previously saved data
 def set_keys_built(keys):
     data = {}
     for key in keys:
         data[str(key)] = str(key)
     db.child("Built Keys").set(data)
+
+def remove_key_built(key):
+    db.child("Built Keys").child(str(key)).remove()
 
 # update data
 def add_key_built(new_key_built):
@@ -72,7 +76,7 @@ def close_stream(my_stream):
 
 if __name__ == "__main__":
 
-    my_stream = db.child("Built Keys").stream(stream_handler)
+    #my_stream = db.child("Built Keys").stream(stream_handler)
     #my_stream = db.child("Users").stream(stream_handler)
-    close_stream(my_stream)
-
+    #close_stream(my_stream)
+    remove_key_built(17)

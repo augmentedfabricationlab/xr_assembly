@@ -12,19 +12,23 @@ config = {
     "measurementId": "G-K8ZDJ560G4"
 }
 
+path_on_cloud = "stateRecord2.txt" # path to download/upload from/to cloud
+path_local = "c:/Users/lidet/workspace/projects/xr_assembly/data/test.txt" # local path to store files
+
 # initialize the connection to firebase
 firebase = pyrebase.initialize_app(config)
 
 # reference to firebase storage
 storage = firebase.storage()
 
-# path to download from
-path_on_cloud = "stateRecord.txt"
+def upload_to_firebase(path_on_cloud, path_local):
+    storage.child(path_on_cloud).put(path_local)
 
-# local path to store files
-path_local = "c:/Users/lidet/workspace/projects/collective_assembly/data/states_from_cloud.txt"
-
-#storage.child("Images/my_image.png").get_url()
-storage.child(path_on_cloud).download(path_local)
+def download_from_firebase(path_on_cloud, path_local):
+    storage.child(path_on_cloud).download(path_local)
 
 
+if __name__ == "__main__":
+
+    #download_from_firebase(path_on_cloud, path_local)
+    upload_to_firebase(path_on_cloud, path_local)
