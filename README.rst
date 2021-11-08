@@ -41,7 +41,7 @@ Installation of Dependencies
 **Assembly Information Model**
 ::
     (your_env_name) python -m pip install git+https://github.com/augmentedfabricationlab/assembly_information_model@master#egg=assembly_information_model
-    (your_env_name) python -m compas_rhino.install -p assembly_information_model
+    (your_env_name) python -m compas_rhino.install -p assembly_information_model -v 7.0
 
 **XR Assembly**
 ::
