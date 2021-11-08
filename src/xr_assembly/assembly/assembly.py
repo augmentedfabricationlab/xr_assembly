@@ -22,9 +22,12 @@ class XRAssembly(Assembly):
 
         # add to default element attributes
         self.network.default_node_attributes.update({
-            'is_built': False, #
-            'is_support': False, #
-            'idx_v': None
+            'is_built': False,
+            'is_support': False,
+            'idx_v': None, # layer, used to compute keys_buildable
+            'custom_attr_1': None, # placeholder for custom node attribute
+            'custom_attr_2': None, # placeholder for custom node attribute
+            'custom_attr_3': None # placeholder for custom node attribute
         })
 
     def get_neighbors_below(self, key):
