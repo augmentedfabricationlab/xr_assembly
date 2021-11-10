@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -129,7 +129,7 @@ public class LoadFile : MonoBehaviour
 
             try
             {
-            assemblyGenerator.GetComponent<CollectiveAssemblyLoader>().generateAssembly(fileText); // Generate the assembly model using the json text.
+            assemblyGenerator.GetComponent<XRAssemblyLoader>().generateAssembly(fileText); // Generate the assembly model using the json text.
             errorMessage.SetActive(false);
             transform.gameObject.SetActive(false);
             Debug.Log("Assembly is generated.");

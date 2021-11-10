@@ -1,13 +1,13 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CollectiveAssembly;
+using XRAssembly;
 using static Calculations;
 
 public class MeshGenerator : MonoBehaviour
 {
     // Generate meshes for each element according to their node data.
-    public void CreateMesh(CollectiveAssembly.Node data, string number)
+    public void CreateMesh(XRAssembly.Node data, string number)
     {
         MeshFilter filter = GetComponent<MeshFilter>();
         UnityEngine.Mesh mesh = filter.mesh;
@@ -15,26 +15,26 @@ public class MeshGenerator : MonoBehaviour
 
         #region Vertices
         
-        Vector3[] vertices = new Vector3[data.Element.Mesh.Data.Vertex.Count];
+        Vector3[] vertices = new Vector3[data.Element.Mesh.Vertex.Count];
 
-        for (int i=0; i< data.Element.Mesh.Data.Vertex.Count; i++)
+        for (int i=0; i< data.Element.Mesh.Vertex.Count; i++)
         {
-            vertices.SetValue(new Vector3((float)-data.Element.Mesh.Data.Vertex[i.ToString()].Y, (float)data.Element.Mesh.Data.Vertex[i.ToString()].Z, (float)data.Element.Mesh.Data.Vertex[i.ToString()].X),i);
+            vertices.SetValue(new Vector3((float)-data.Element.Mesh.Vertex[i.ToString()].Y, (float)data.Element.Mesh.Vertex[i.ToString()].Z, (float)data.Element.Mesh.Vertex[i.ToString()].X),i);
         }
 
         #endregion
 
         #region Triangles
-        int[] triangles = new int[data.Element.Mesh.Data.Face.Values.Count*3];
+        int[] triangles = new int[data.Element.Mesh.Face.Values.Count*3];
         int counter = 0;
 
-        foreach (var key in data.Element.Mesh.Data.Face.Keys)
+        foreach (var key in data.Element.Mesh.Face.Keys)
         {
-            triangles.SetValue((int)data.Element.Mesh.Data.Face[key][0], counter);
+            triangles.SetValue((int)data.Element.Mesh.Face[key][0], counter);
             counter = counter + 1;
-            triangles.SetValue((int)data.Element.Mesh.Data.Face[key][2], counter);
+            triangles.SetValue((int)data.Element.Mesh.Face[key][2], counter);
             counter = counter + 1;
-            triangles.SetValue((int)data.Element.Mesh.Data.Face[key][1], counter);
+            triangles.SetValue((int)data.Element.Mesh.Face[key][1], counter);
             counter = counter + 1;
         }
 

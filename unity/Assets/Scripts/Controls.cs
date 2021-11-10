@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
@@ -37,8 +37,8 @@ public class Controls : MonoBehaviour
         // Set the workplace/digital model active.
         workplace.SetActive(false);
 
-        assemblyLoader.GetComponent<CollectiveAssemblyLoader>().assemblyLoaded = false;
-        assemblyLoader.GetComponent<CollectiveAssemblyLoader>().scalingFactor = 1;
+        assemblyLoader.GetComponent<XRAssemblyLoader>().assemblyLoaded = false;
+        assemblyLoader.GetComponent<XRAssemblyLoader>().scalingFactor = 1;
         thisButton = GetComponent<Button>();
         TrackerManager.Instance.GetTracker<ObjectTracker>().Stop();
     }
@@ -46,7 +46,7 @@ public class Controls : MonoBehaviour
     // Display the download canvas to load the json files.
     public void DisplayDownloadCanvas()
     {
-        if (!assemblyLoader.GetComponent<CollectiveAssemblyLoader>().assemblyLoaded)
+        if (!assemblyLoader.GetComponent<XRAssemblyLoader>().assemblyLoaded)
         {
             if (!downloadCanvas.activeSelf)
             {

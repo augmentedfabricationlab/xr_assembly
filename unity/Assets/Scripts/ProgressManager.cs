@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,10 +34,10 @@ public class ProgressManager : MonoBehaviour
 
     public string currentPhase;
 
-    public Dictionary<string, CollectiveAssembly.Node> assemblyNodes;
+    public Dictionary<string, XRAssembly.Node> assemblyNodes;
     public IDictionary<string, GameObject> assemblyMeshes = new Dictionary<string, GameObject>();
-    public Dictionary<string, Dictionary<string, CollectiveAssembly.EdgeAttributes>> assemblyAdjacency;
-    public Dictionary<string, Dictionary<string, CollectiveAssembly.EdgeAttributes>> assemblyEdge;
+    public Dictionary<string, Dictionary<string, XRAssembly.Adjacency>> assemblyAdjacency;
+    public Dictionary<string, Dictionary<string, XRAssembly.Adjacency>> assemblyEdge;
 
     private Quaternion nullQuaternion = new Quaternion(0,0,0,0);
 
@@ -53,13 +53,12 @@ public class ProgressManager : MonoBehaviour
         reference.Child("Built Keys").ChildAdded += dataSaveManager.HandleChildAdded;
         reference.Child("Built Keys").ChildRemoved += dataSaveManager.HandleChildRemoved;
         reference.Child("Users").ChildChanged += dataSaveManager.HandleChildChanged;
-        reference.Child("Current Phase").Child("Phase").ValueChanged += dataSaveManager.HandlePhaseChanged;
 
         // Get the assembly data.
-        assemblyNodes = assemblyLoader.GetComponent<CollectiveAssemblyLoader>().assemblyNodes;
-        assemblyMeshes = assemblyLoader.GetComponent<CollectiveAssemblyLoader>().assemblyMeshes;
-        assemblyAdjacency = assemblyLoader.GetComponent<CollectiveAssemblyLoader>().assemblyAdjacency;
-        assemblyEdge = assemblyLoader.GetComponent<CollectiveAssemblyLoader>().assemblyEdge;
+        assemblyNodes = assemblyLoader.GetComponent<XRAssemblyLoader>().assemblyNodes;
+        assemblyMeshes = assemblyLoader.GetComponent<XRAssemblyLoader>().assemblyMeshes;
+        assemblyAdjacency = assemblyLoader.GetComponent<XRAssemblyLoader>().assemblyAdjacency;
+        assemblyEdge = assemblyLoader.GetComponent<XRAssemblyLoader>().assemblyEdge;
 
         // Check and build according to the built keys before.
         CheckForBuiltStates();
@@ -68,7 +67,6 @@ public class ProgressManager : MonoBehaviour
         dataSaveManager.OnBuiltUpdate.AddListener(UpdateBuiltStates);
         dataSaveManager.OnRemovedUpdate.AddListener(UpdateRemovedStates);
         dataSaveManager.OnSelectedKeyUpdate.AddListener(UpdateOtherSelectedElements);
-        dataSaveManager.OnPhaseUpdate.AddListener(UpdateCurrentPhase);
 
         // Load other users and generate the user data of own.
         dataSaveManager.LoadUsers();
@@ -108,45 +106,10 @@ public class ProgressManager : MonoBehaviour
         }
     }
 
-    // Get the elements according to the current phase.
-    public List<string> GetCurrentPhaseKeys()
-    {
-        List<string> CurrentPhaseKeys = new List<string>();
-
-        foreach (var key in assemblyNodes.Keys)
-        {
-            if (assemblyNodes[key].Phase3 == true && currentPhase == "Phase3")
-            {
-                CurrentPhaseKeys.Add(key);
-            }
-            else if (assemblyNodes[key].Phase2 == true && currentPhase == "Phase2")
-            {
-                CurrentPhaseKeys.Add(key);
-            }
-            else
-            {
-                CurrentPhaseKeys.Add(key);
-            }
-        }
-        return CurrentPhaseKeys;
-    }
-
-    // JUST FOR TESTING
-    // Preset states
-    public void PresetPhase()
-    {
-        List<string> KeysNeigborsBelow = new List<string>();
-
-        foreach (var key in assemblyNodes.Keys.Where(key => (assemblyNodes[key].Phase2 == true) && (assemblyNodes[key].Phase1 == true)))
-        {
-            assemblyNodes[key].IsBuilt = true;
-        }
-    }
-
     // Update is_built = true as soon as the could data changes.
     public void UpdateBuiltStates()
     {
-        if (assemblyLoader.GetComponent<CollectiveAssemblyLoader>().assemblyLoaded)
+        if (assemblyLoader.GetComponent<XRAssemblyLoader>().assemblyLoaded)
         {
             if (assemblyNodes[dataSaveManager.newBuiltKey].IsBuilt != true)
             {
@@ -165,7 +128,7 @@ public class ProgressManager : MonoBehaviour
     // Update is_built = false as soon as the could data changes.
     public void UpdateRemovedStates()
     {
-        if (assemblyLoader.GetComponent<CollectiveAssemblyLoader>().assemblyLoaded)
+        if (assemblyLoader.GetComponent<XRAssemblyLoader>().assemblyLoaded)
         {
             if (assemblyNodes[dataSaveManager.newRemovedKey].IsBuilt == true)
             {
@@ -181,26 +144,14 @@ public class ProgressManager : MonoBehaviour
         Debug.Log("UPDATED SELECTION SLIDER MAX: " + selectionSlider.maxValue);
     }
 
-    // Update from the current phase in the Realtime Database when changed.
-    public void UpdateCurrentPhase()
-    {
-        currentPhase = "Phase" + dataSaveManager.newCurrentPhase;
-        Debug.Log("Current phase is " + currentPhase);
-
-        VisualiseStates();
-
-        selectionSlider.maxValue = GetKeysBuildable().Count - 1;
-        Debug.Log("UPDATED SELECTION SLIDER MAX: " + selectionSlider.maxValue);
-    }
 
     // Return the keys of the elements which are buildable.
     // i.e., the elements which are supported by the ground or by at least one elements below
     public List<string> GetKeysBuildable()
     {
         List<string> keysBuildable = new List<string>();
-        List<string> CurrentPhaseKeys = GetCurrentPhaseKeys();
 
-        foreach (var key in assemblyNodes.Keys.Where(key => (assemblyNodes[key].IsBuilt != true) && CurrentPhaseKeys.Contains(key)))
+        foreach (var key in assemblyNodes.Keys.Where(key => (assemblyNodes[key].IsBuilt != true) ))
         {
             if (assemblyNodes[key].IdxV == 0) // Check if the element is supported by the ground.
             {
@@ -245,116 +196,11 @@ public class ProgressManager : MonoBehaviour
         return keysBuildable;
     }
 
-    // Return the keys of the elements which are removable,
-    // i.e., the elements which are used for support and are already built
-    public List<string> GetKeysRemovable()
-    {
-        List<string> keysRemovable = new List<string>();
-
-        foreach (var key in assemblyNodes.Keys.Where(key => (assemblyNodes[key].IsBuilt == true) && (assemblyNodes[key].IsSupport == true)))
-        {
-            if (assemblyNodes[key].IdxV == 9) // Check if the element is in the top support layer.
-            {
-                keysRemovable.Add(key);
-            }
-            else
-            {
-                List<string> neighborsBelow = GetKeysNeighborsAbove(key);
-
-                if (neighborsBelow.Count > 0)
-                {
-                    List<bool> isBuilt = new List<bool>();
-                    foreach (var neighborKey in neighborsBelow)
-                    {
-                        if (assemblyNodes[neighborKey].IsBuilt != true)
-                        {
-                            isBuilt.Add(false);
-                        }
-                        else
-                        {
-                            isBuilt.Add(true);
-                        }
-                    }
-                    bool removable = !isBuilt.Contains(true); // Check if all neighbors above are not built.
-
-                    if (removable == true)
-                    {
-                        keysRemovable.Add(key);
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-            }
-
-        }
-
-        // Order the keysRemovable list.
-        keysRemovable = keysRemovable.OrderBy(x => x.Length).ThenBy(x => x).ToList();
-        return keysRemovable;
-    }
-
-    // Get the keys of all elements that has to be dismantaled. - UNUSED (not working)
-    //public List<string> GetKeysDismantable()
-    //{
-    //    List<string> KeysDismantable = new List<string>();
-
-    //    foreach (var key in assemblyNodes.Keys.Where(key => assemblyNodes[key].IsSupport == true))
-    //    {
-    //        List<string> NeighborsAbove = GetKeysNeighborsAbove(key);
-
-    //        if (NeighborsAbove.Count > 0)
-    //        {
-    //            List<bool> isSupport = new List<bool>();
-
-    //            foreach (var nkey in NeighborsAbove)
-    //            {
-    //                if (assemblyNodes[key].IsSupport != true)
-    //                {
-    //                    isSupport.Add(false);
-    //                }
-    //                else
-    //                {
-    //                    isSupport.Add(true);
-    //                }
-    //                bool isEdge = isSupport.Contains(false);
-
-    //                if (isEdge == true)
-    //                {
-    //                    KeysDismantable.Add(key);
-    //                }
-    //                else
-    //                {
-    //                    continue;
-    //                }
-    //            }
-    //        }
-    //    }
-    //    return KeysDismantable;
-    //}
-
-    // Get the keys of all elements that has to be mounted to the ground.
-    public List<string> GetKeysMounted()
-    {
-        List<string> KeysMounted = new List<string>();
-
-        foreach (var key in assemblyNodes.Keys.Where(key => (assemblyNodes[key].IsSupport != true) && (assemblyNodes[key].IdxV == 0)))
-        {
-            KeysMounted.Add(key);
-        }
-
-        return KeysMounted;
-    }
 
     // Visualise the colors of the elements according to their states.
     public void VisualiseStates()
     {
         List<string> keysBuildable = GetKeysBuildable();
-        List<string> keysRemovable = GetKeysRemovable();
-        List<string> keysDismantable = new List<string>();
-        string[] dismantableKeys = { "6", "16", "20", "29", "38", "47", "52", "60", "70", "78", "84", "91", "102", "109", "116", "122", "134", "140", "148", "153", "166", "171", "180", "184", "198", "202", "212", "215", "230", "233", "244", "246", "262", "264", "276", "277", "294", "295", "308" }; // Temporary until getKeysDismantable().
-        keysDismantable.AddRange(dismantableKeys);
 
         foreach (var key in assemblyNodes.Keys)
         {
@@ -363,20 +209,8 @@ public class ProgressManager : MonoBehaviour
             // Built elements are blue.
             if (assemblyNodes[key].IsBuilt == true)
             {
-                if (currentPhase == "Phase3" && keysRemovable.Contains(key)) // assemblyNodes[key].IsSupport == true
-                {
-                    mat = Resources.Load("dark blue") as Material;
-                }
-                else
-                {
-                    mat = Resources.Load("blue") as Material;
-                }
+                mat = Resources.Load("blue") as Material;
             }
-            // Dismantable elements are purple.
-            //else if (keysDismantable.Contains(key))
-            //{
-            //    mat = Resources.Load("purple") as Material;
-            //}
             // Buildable elements are light green.
             else if (keysBuildable.Contains(key))
             {
@@ -435,8 +269,7 @@ public class ProgressManager : MonoBehaviour
         // Dropdown values:
         // 0 : "Show Only Built"
         // 1 : "Show Built + Buildable"
-        // 2 : "Show Built + Current Phase"
-        // 3 : "Show All"
+        // 2 : "Show All"
 
         foreach (var key in assemblyNodes.Keys)
         {
@@ -451,19 +284,6 @@ public class ProgressManager : MonoBehaviour
                 assemblyMeshes[key].SetActive(true);
             }
             else if (dropdownValue == 2)
-            {
-                if (currentPhase == "Phase1" && assemblyNodes[key].Phase1 == true)
-                {
-                    assemblyMeshes[key].SetActive(true);
-                } else if (currentPhase == "Phase2" && assemblyNodes[key].Phase2 == true)
-                {
-                    assemblyMeshes[key].SetActive(true);
-                } else if (currentPhase == "Phase3" && assemblyNodes[key].Phase3 == true)
-                {
-                    assemblyMeshes[key].SetActive(true);
-                }
-            }
-            else if (dropdownValue == 3 && assemblyNodes[key].IsSupport != true)
             {
                 assemblyMeshes[key].SetActive(true);
             }
@@ -483,31 +303,12 @@ public class ProgressManager : MonoBehaviour
         Material mat = Resources.Load("red") as Material;
 
         List<string> keysBuildable = GetKeysBuildable();
-        List<string> keysRemovable = GetKeysRemovable();
-        List<string> keysDismantable = new List<string>();
-        string[] dismantableKeys = { "6", "16", "20", "29", "38", "47", "52", "60", "70", "78", "84", "91", "102", "109", "116", "122", "134", "140", "148", "153", "166", "171", "180", "184", "198", "202", "212", "215", "230", "233", "244", "246", "262", "264", "276", "277", "294", "295", "308" };
-        keysDismantable.AddRange(dismantableKeys);
-        List<string> keysMounted = GetKeysMounted();
 
         string key;
 
         try
         {
-            if (currentPhase == "Phase3")
-            {
-                List<string> keysMerged = keysBuildable.Concat(keysRemovable).ToList();
-                keysMerged = keysMerged.OrderBy(x => x.Length).ThenBy(x => x).ToList();
-                key = keysMerged[value];
-
-                if (keysRemovable.Contains(key))
-                {
-                    changeStateButton.text = "Remove";
-                }
-            }
-            else
-            {
-                key = keysBuildable[value];
-            }
+            key = keysBuildable[value];
 
             assemblyMeshes[key].GetComponent<MeshRenderer>().material = mat;
 
@@ -518,17 +319,6 @@ public class ProgressManager : MonoBehaviour
             dataSaveManager.WriteSelectedElement(key);
 
             selectionText.text = key;
-
-            if (keysDismantable.Contains(key))
-            {
-                DisplayNotification($"Place dismantable for element {key}!");
-            } else if (keysMounted.Contains(key))
-            {
-                DisplayNotification($"Mount element {key} to the ground!");
-            } else
-            {
-                notificationCanvas.SetActive(false);
-            }
 
         } catch
         {
@@ -555,19 +345,8 @@ public class ProgressManager : MonoBehaviour
     {
         List<string> keysBuildable = GetKeysBuildable();
 
-        List<string> keysRemovable = GetKeysRemovable();
-
         string key;
-
-        if (currentPhase == "Phase3")
-        {
-            List<string> keysMerged = keysBuildable.Concat(keysRemovable).ToList();
-            keysMerged = keysMerged.OrderBy(x => x.Length).ThenBy(x => x).ToList();
-            key = keysMerged[value]; 
-        } else
-        {
-            key = keysBuildable[value];
-        }
+        key = keysBuildable[value];
 
         if (assemblyNodes[key].IsBuilt != true && keysBuildable.Contains(key))
         {
@@ -580,7 +359,7 @@ public class ProgressManager : MonoBehaviour
             Debug.Log(key + " element is built by me.");
         }
 
-        else if (assemblyNodes[key].IsBuilt == true && keysRemovable.Contains(key))
+        else if (assemblyNodes[key].IsBuilt == true)
         {
             assemblyNodes[key].IsBuilt = false;
 

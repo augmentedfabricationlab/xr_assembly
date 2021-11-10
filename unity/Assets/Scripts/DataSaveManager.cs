@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,33 +41,8 @@ public class DataSaveManager : MonoBehaviour
         EraseUserData("User_" + myUserData.userID.ToString());
     }
 
-    // When the Current Phase is changed, invoke "on phase update".
-    public void HandlePhaseChanged(object sender, ValueChangedEventArgs args)
-    {
-        if (args.DatabaseError != null)
-        {
-            Debug.LogError(args.DatabaseError.Message);
-            return;
-        }
 
-        var value = args.Snapshot.Value;
-
-        try
-        {
-            if (!string.IsNullOrEmpty(value.ToString()))
-            {
-                newCurrentPhase = value.ToString();
-                OnPhaseUpdate.Invoke();
-            }
-        }
-        catch
-        {
-            Debug.LogWarning("The new phase could not be retrieved.");
-        }
-
-    }
-
-    // Save the user data of own.
+        // Save the user data of own.
     public void SaveUserData()
     {
         string USER_KEY = "User_" + myUserData.userID.ToString();

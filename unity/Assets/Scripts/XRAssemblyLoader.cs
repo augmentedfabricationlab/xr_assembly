@@ -1,11 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CollectiveAssembly;
+using XRAssembly;
 using static Calculations;
 using Vuforia;
 
-public class CollectiveAssemblyLoader : MonoBehaviour
+public class XRAssemblyLoader : MonoBehaviour
 {
     public GameObject meshGenerator;
     public GameObject progressManager;
@@ -17,23 +17,23 @@ public class CollectiveAssemblyLoader : MonoBehaviour
     public int scalingFactor;
     public int maxIntKeys;
 
-    public Dictionary<string, CollectiveAssembly.Node> assemblyNodes;
+    public Dictionary<string, XRAssembly.Node> assemblyNodes;
     public IDictionary<string, GameObject> assemblyMeshes = new Dictionary<string, GameObject>();
-    public Dictionary<string, Dictionary<string, CollectiveAssembly.EdgeAttributes>> assemblyAdjacency;
-    public Dictionary<string, Dictionary<string, CollectiveAssembly.EdgeAttributes>> assemblyEdge;
+    public Dictionary<string, Dictionary<string, XRAssembly.Adjacency>> assemblyAdjacency;
+    public Dictionary<string, Dictionary<string, XRAssembly.Adjacency>> assemblyEdge;
 
     // Generate the Assembly Model using the Collective Assembly.Assembly class.
     public void generateAssembly(string fileText)
     {
-        var assembly = CollectiveAssembly.Assembly.FromJson(fileText);
-        var assemblyData = assembly.Data;
+        var assembly = XRAssembly.Assembly.FromJson(fileText);
+        var assemblyData = assembly;
 
-        assemblyNodes = assemblyData.Node;
-        assemblyAdjacency = assemblyData.Adjacency;
-        assemblyEdge = assemblyData.Edge;
+        assemblyNodes = assembly.Node;
+        assemblyAdjacency = assembly.Adjacency;
+        assemblyEdge = assembly.Edge;
 
-        maxIntKeys = (int)assemblyData.MaxIntKey;
-    
+        maxIntKeys = (int)assembly.MaxNode;
+
         Vector3 originFrame = new Vector3(
         (float)-assemblyData.Node[(assemblyData.Node.Count - 1).ToString()].Element.Frame.Point[1],
         (float)assemblyData.Node[(assemblyData.Node.Count - 1).ToString()].Element.Frame.Point[2],
