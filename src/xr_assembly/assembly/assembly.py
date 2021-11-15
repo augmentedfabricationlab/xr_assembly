@@ -34,7 +34,7 @@ class XRAssembly(Assembly):
         """
         get the direct neighbors below one chosen element
         """
-        neighbors_below = self.network.neighbors_out(key)
+        neighbors_below = self.network.neighbors_in(key)
         return neighbors_below
 
     def get_all_neighbors_below(self, key, all_keys_below=[]):
