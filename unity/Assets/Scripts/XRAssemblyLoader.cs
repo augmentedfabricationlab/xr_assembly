@@ -9,7 +9,7 @@ public class XRAssemblyLoader : MonoBehaviour
 {
     public GameObject meshGenerator;
     public GameObject progressManager;
-    public UnityEngine.Quaternion frameQuaternion;
+    public Quaternion frameQuaternion;
     public Vector3 transformVector;
     public Vector3 originDifference;
 
@@ -58,13 +58,13 @@ public class XRAssemblyLoader : MonoBehaviour
                 (float)node.Element.Frame.Yaxis[1],
                 (float)node.Element.Frame.Yaxis[2]);
 
-            UnityEngine.Quaternion ownQuaternion = QuaternionFromMatrix3x3(MatrixFromBasisVectors(ownXAxis, ownYAxis));
+            Quaternion ownQuaternion = QuaternionFromMatrix3x3(MatrixFromBasisVectors(ownXAxis, ownYAxis));
 
             GameObject newPivot = new GameObject("Frame" + key);
             newPivot.transform.parent = transform;
 
             // Generate meshes using the Assembly class node data and keys.
-            GameObject newMesh = Instantiate(meshGenerator, Vector3.zero, UnityEngine.Quaternion.identity, newPivot.transform) as GameObject;
+            GameObject newMesh = Instantiate(meshGenerator, Vector3.zero, Quaternion.identity, newPivot.transform) as GameObject;
             newPivot.SetActive(true);
             newMesh.name = "element" + key;
             assemblyMeshes.Add(key, newMesh);

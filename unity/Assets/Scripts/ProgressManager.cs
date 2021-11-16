@@ -156,17 +156,19 @@ public class ProgressManager : MonoBehaviour
             if (assemblyNodes[key].IdxV == 0) // Check if the element is supported by the ground.
             {
                 keysBuildable.Add(key);
+                
             }
             else
             {
-                List<string> neighborsBelow = GetKeysNeighborsBelow(key);
-
+                List<string> neighborsBelow = GetKeysNeighborsAbove(key);
+                
                 if (neighborsBelow.Count > 0)
                 {
                     List<bool> isBuilt = new List<bool>();
 
                     foreach (var neighborKey in neighborsBelow)
                     {
+                        
                         if (assemblyNodes[neighborKey].IsBuilt != true)
                         {
                             isBuilt.Add(false);
@@ -187,6 +189,7 @@ public class ProgressManager : MonoBehaviour
                     {
                         continue;
                     }
+
                 }
             }
         }
@@ -194,6 +197,7 @@ public class ProgressManager : MonoBehaviour
         // Order the keysBuildable list.
         keysBuildable = keysBuildable.OrderBy(x => x.Length).ThenBy(x => x).ToList();
         return keysBuildable;
+        
     }
 
 
@@ -428,29 +432,32 @@ public class ProgressManager : MonoBehaviour
     }
 
     // Get the direct neighbors of a node above.
-    public List<string> GetKeysNeighborsAbove(string key)
-    {
-        List<string> KeysNeigborsAbove = new List<string>();
-        List<string> KeysNeghborsIn = assemblyAdjacency[key].Keys.Except(assemblyEdge[key].Keys).ToList();
-
-        for (int i = 0; i < KeysNeghborsIn.Count; i++)
-        {
-            KeysNeigborsAbove.Add(KeysNeghborsIn[i]);
-        }
-        return KeysNeigborsAbove;
-    }
-
-    // Get the direct neighbors of a node below.
     public List<string> GetKeysNeighborsBelow(string key)
     {
         List<string> KeysNeigborsBelow = new List<string>();
-        List<string> KeysNeightborsOut = new List<string>(assemblyEdge[key].Keys);
+        List<string> KeysNeghborsOut = assemblyAdjacency[key].Keys.Except(assemblyEdge[key].Keys).ToList();
 
-        for (int i = 0; i < KeysNeightborsOut.Count; i++)
+        for (int i = 0; i < KeysNeghborsOut.Count; i++)
         {
-            KeysNeigborsBelow.Add(KeysNeightborsOut[i]);
+            KeysNeigborsBelow.Add(KeysNeghborsOut[i]);
         }
+        
         return KeysNeigborsBelow;
+    }
+
+    // Get the direct neighbors of a node below.
+    public List<string> GetKeysNeighborsAbove(string key)
+    {
+        List<string> KeysNeigborsAbove = new List<string>();
+        List<string> KeysNeightborsIn = new List<string>(assemblyEdge[key].Keys);
+
+        for (int i = 0; i < KeysNeightborsIn.Count; i++)
+        {
+            KeysNeigborsAbove.Add(KeysNeightborsIn[i]);
+        }
+        foreach (var boh in KeysNeigborsAbove)
+            Debug.Log(boh);
+        return KeysNeigborsAbove;
     }
 }
 
