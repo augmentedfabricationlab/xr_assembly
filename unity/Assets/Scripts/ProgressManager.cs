@@ -160,6 +160,7 @@ public class ProgressManager : MonoBehaviour
             }
             else
             {
+                
                 List<string> neighborsBelow = GetKeysNeighborsAbove(key);
                 
                 if (neighborsBelow.Count > 0)
