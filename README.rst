@@ -5,29 +5,10 @@ XR Assembly
 
 Visualize Assembly data in XR
 
-
-Main features
--------------
-
-* feature
-* feature
-* more features
-
-**xr_assembly** runs on Python x.x and x.x.
-
-
-Documentation
--------------
-
-.. Explain how to access documentation: API, examples, etc.
-
-..
-.. optional sections:
-
 Requirements
 ------------
 
-.. Write requirements instructions here
+COMPAS
 
 
 Dependencies
