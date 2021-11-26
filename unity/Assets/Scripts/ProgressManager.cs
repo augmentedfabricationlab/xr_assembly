@@ -161,7 +161,7 @@ public class ProgressManager : MonoBehaviour
             else
             {
                 
-                List<string> neighborsBelow = GetKeysNeighborsAbove(key);
+                List<string> neighborsBelow = GetKeysNeighborsBelow(key);
                 
                 if (neighborsBelow.Count > 0)
                 {
@@ -436,11 +436,11 @@ public class ProgressManager : MonoBehaviour
     public List<string> GetKeysNeighborsBelow(string key)
     {
         List<string> KeysNeigborsBelow = new List<string>();
-        List<string> KeysNeghborsOut = assemblyAdjacency[key].Keys.Except(assemblyEdge[key].Keys).ToList();
+        List<string> KeysNeghborsIn = assemblyAdjacency[key].Keys.Except(assemblyEdge[key].Keys).ToList();
 
-        for (int i = 0; i < KeysNeghborsOut.Count; i++)
+        for (int i = 0; i < KeysNeghborsIn.Count; i++)
         {
-            KeysNeigborsBelow.Add(KeysNeghborsOut[i]);
+            KeysNeigborsBelow.Add(KeysNeghborsIn[i]);
         }
         
         return KeysNeigborsBelow;
@@ -450,14 +450,12 @@ public class ProgressManager : MonoBehaviour
     public List<string> GetKeysNeighborsAbove(string key)
     {
         List<string> KeysNeigborsAbove = new List<string>();
-        List<string> KeysNeightborsIn = new List<string>(assemblyEdge[key].Keys);
+        List<string> KeysNeightborsOut = new List<string>(assemblyEdge[key].Keys);
 
-        for (int i = 0; i < KeysNeightborsIn.Count; i++)
+        for (int i = 0; i < KeysNeightborsOut.Count; i++)
         {
-            KeysNeigborsAbove.Add(KeysNeightborsIn[i]);
+            KeysNeigborsAbove.Add(KeysNeightborsOut[i]);
         }
-        foreach (var boh in KeysNeigborsAbove)
-            Debug.Log(boh);
         return KeysNeigborsAbove;
     }
 }
