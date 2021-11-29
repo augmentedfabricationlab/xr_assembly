@@ -33,9 +33,10 @@ def stream_handler(message):
 def get_keys_built():
     keys_built = []
     keys = db.child("Built Keys").get()
-    for key in keys.each():
-        #print("key to built key ", key.key())
-        keys_built.append(key.val())
+    if keys.each():
+        for key in keys.each():
+            #print("key to built key ", key.key())
+            keys_built.append(key.val())
     return keys_built
 
 # get users' ids
@@ -76,7 +77,13 @@ def close_stream(my_stream):
 
 if __name__ == "__main__":
 
+    
+    #add_key_built(4)
+    remove_key_built(10)
+    print(get_keys_built())
     #my_stream = db.child("Built Keys").stream(stream_handler)
     #my_stream = db.child("Users").stream(stream_handler)
     #close_stream(my_stream)
-    remove_key_built(17)
+    #remove_key_built(17)
+    
+
