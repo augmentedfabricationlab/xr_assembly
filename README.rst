@@ -44,11 +44,12 @@ Make sure you setup your local development environment correctly:
     (your_env_name) invoke add-to-rhino
 
 
-Suggestions or further development
+Further development
 -------------
 
-- Switch from Vuforia to [ARFoundation](https://unity.com/unity/features/arfoundation) for extending operability on Android amd iOS mobile device
+- Switch from Vuforia to `ARFoundation <https://unity.com/unity/features/arfoundation>`_ for extending operability on Android and iOS mobile device
 - Use Anchors as alternative to image tracking
+
 
 Credits
 -------------
