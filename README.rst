@@ -20,11 +20,23 @@ Dependencies
 Installation of Dependencies
 ----------------------------
 **Assembly Information Model**
+
+Uninstall any previous library versions
+::
+    (your_env_name) python -m pip uninstall git+https://github.com/augmentedfabricationlab/assembly_information_model@master#egg=assembly_information_model
+
+Install the latest update
 ::
     (your_env_name) python -m pip install git+https://github.com/augmentedfabricationlab/assembly_information_model@master#egg=assembly_information_model
     (your_env_name) python -m compas_rhino.install -p assembly_information_model -v 7.0
 
 **XR Assembly**
+
+Uninstall any previous library versions
+::
+    (your_env_name) python -m pip uninstall git+https://github.com/augmentedfabricationlab/xr_assembly@master#egg= xr_assembly
+
+Install the latest update
 ::
     (your_env_name) python -m pip install git+https://github.com/augmentedfabricationlab/xr_assembly@master#egg=xr_assembly
     (your_env_name) python -m compas_rhino.install -p xr_assembly -v 7.0
